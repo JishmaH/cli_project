@@ -23,5 +23,5 @@ public class Airport {
         this.flights.remove(flight);
         this.cancelledFlights.add(flight);
     }
-    
+
 }
