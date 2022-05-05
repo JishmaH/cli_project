@@ -28,13 +28,25 @@ public class Flight {
     public void setId(int id) {
         this.id = id;
     }
+    public void addBookedPassenger(Passenger passenger) {
+        this.bookedPassengers.add(passenger);
+    }
+    public void printBookedPassengers(){
+        System.out.println(bookedPassengers.toString());
+    }
 
     public int bookedPassengerCount(){
         return this.bookedPassengers.size();
     }
 
-    public void addBookedPassengers(Passenger passenger) {
-        this.bookedPassengers.add(passenger);
-        }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "destination='" + destination + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
 
 }

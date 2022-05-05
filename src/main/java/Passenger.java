@@ -2,12 +2,12 @@ public class Passenger {
 
     private String name;
     private String email;
-    private int id;
+    private int passengerId;
 
-    public Passenger(String name, String email, int id) {
+    public Passenger(String name, String email, int passengerId) {
         this.name = name;
         this.email = email;
-        this.id = id;
+        this.passengerId = passengerId;
     }
 
     public String getName() {
@@ -26,11 +26,20 @@ public class Passenger {
         this.email = email;
     }
 
-    public int getId() {
-        return id;
+    public int getPassengerId() {
+        return passengerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int passengerId) {
+        this.passengerId = passengerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", passengerId=" + passengerId +
+                '}';
     }
 }
