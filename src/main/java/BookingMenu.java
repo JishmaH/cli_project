@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-public class BookingMenu {
+public class BookingMenu{
     private Scanner scanner;
     private ArrayList<Flight> allFlights;
     private ArrayList<Flight> availableFlights;
@@ -41,34 +42,52 @@ public class BookingMenu {
         System.out.println("3. Add a new passenger");
         System.out.println("4. Book a passenger on to a flight");
         System.out.println("5. Cancel a flight");
-        System.out.println("6. Admin access");
-        System.out.println("7. Close app");
-        System.out.println("Please enter a number between 1 and 7 to pick an option:");
+        System.out.println("6. Search for flights by destination");
+        System.out.println("7. Admin access");
+        System.out.println("8. Close app");
+        System.out.println("Please enter a number between 1 and 8 to pick an option:");
+        try {
         String option = scanner.nextLine();
+            if(option.equals("1")||option.equals("2")||option.equals("3")||option.equals("4")||option.equals("5")
+            ||option.equals("6")||option.equals("7")||option.equals("8")) {
+                System.out.println("Thank you for picking an option");
+            } else
+            {
+                    throw new Exception("Please input a number between 1 and 8");
+                }
 
-        switch(option) {
-            case "1":
-                addFlight();
-                break;
-            case "2":
-                displayAvailableFlights();
-                break;
-            case "3":
-                addPassenger();
-                break;
-            case "4":
-                bookOnToAFlight();
-                break;
-            case "5":
-                cancelFlight();
-                break;
-            case "6":
-                adminAccess();
-                break;
-            case "7":
-                System.out.println("Thanks for using our app!");
+            switch(option) {
+                case "1":
+                    addFlight();
+                    break;
+                case "2":
+                    displayAvailableFlights();
+                    break;
+                case "3":
+                    addPassenger();
+                    break;
+                case "4":
+                    bookOnToAFlight();
+                    break;
+                case "5":
+                    cancelFlight();
+                    break;
+                case "6":
+                    searchFlightsByDestination();
+                    break;
+                case "7":
+                    adminAccess();
+                    break;
+                case "8":
+                    System.out.println("Thanks for using our app!");
+            }
         }
-
+        catch (Exception exception){
+            exception.printStackTrace();
+            System.out.println("Exception thrown");
+            System.out.println(exception.getMessage());
+        }
+    start();
     }
     public void addFlight(){
         System.out.println(" ");
@@ -133,6 +152,13 @@ public class BookingMenu {
         this.availableFlights.remove(selectedFlight);
         this.cancelledFlights.add(selectedFlight);
 
+        start();
+    }
+    public void searchFlightsByDestination(){
+        System.out.println("Enter your desired destination:");
+        String dest = scanner.nextLine();
+        System.out.println(availableFlights.get(0).getDestination());
+        System.out.println(availableFlights.stream().filter(el -> (el.getDestination().equals(dest))).collect(Collectors.toList()));
         start();
     }
 
