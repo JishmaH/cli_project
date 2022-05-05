@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -29,9 +30,6 @@ public class BookingMenu{
         return cancelledFlights;
     }
 
-    public void printAvailableFlights(){
-        System.out.println(availableFlights.toString());
-    }
 
     public void start(){
         System.out.println("Welcome!");
@@ -121,7 +119,9 @@ public class BookingMenu{
     }
 
     public void displayAvailableFlights(){
-        printAvailableFlights();
+        for(Flight flight : availableFlights){
+            System.out.println(flight.toString());
+        }
         start();
     }
 
@@ -157,8 +157,10 @@ public class BookingMenu{
     public void searchFlightsByDestination(){
         System.out.println("Enter your desired destination:");
         String dest = scanner.nextLine();
-        System.out.println(availableFlights.get(0).getDestination());
-        System.out.println(availableFlights.stream().filter(el -> (el.getDestination().equals(dest))).collect(Collectors.toList()));
+        List<Flight> flightsByDestination = availableFlights.stream().filter(el -> (el.getDestination().equals(dest))).collect(Collectors.toList());
+        for(Flight flight : flightsByDestination) {
+            System.out.println(flight);
+        }
         start();
     }
 
@@ -173,11 +175,14 @@ public class BookingMenu{
 
         switch (tests){
             case "1":
-                System.out.println(allFlights.toString());
-                adminAccess();
+                for(Flight flight : allFlights){
+                    System.out.println(flight.toString());
+                }                adminAccess();
                 break;
             case "2":
-                System.out.println(cancelledFlights.toString());
+                for(Flight cancelledFlight : cancelledFlights){
+                    System.out.println(cancelledFlight.toString());
+                }
                 adminAccess();
                 break;
             case "3":
@@ -189,7 +194,9 @@ public class BookingMenu{
                 adminAccess();
                 break;
             case "4":
-                System.out.println(passengers.toString());
+                for(Passenger passenger : passengers){
+                    System.out.println(passenger.toString());
+                }
                 adminAccess();
                 break;
             case "5":

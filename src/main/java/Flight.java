@@ -32,7 +32,9 @@ public class Flight {
         this.bookedPassengers.add(passenger);
     }
     public void printBookedPassengers(){
-        System.out.println(bookedPassengers.toString());
+       for(Passenger bookedPassenger : bookedPassengers){
+           System.out.println(bookedPassenger.toString());
+       }
     }
 
     public int bookedPassengerCount(){
