@@ -138,7 +138,20 @@ public class BookingMenu{
         int flightIndex = Integer.parseInt(flightId) - 1;
         Flight selectedFlight = allFlights.get(flightIndex);
 
-        selectedFlight.addBookedPassenger(selectedPassenger);
+        try {
+            if(availableFlights.contains(selectedFlight)) {
+                selectedFlight.addBookedPassenger(selectedPassenger);
+            } else {
+                throw new Exception("*FLIGHT HAS BEEN CANCELLED*");
+            }
+        } catch (Exception exception){
+            exception.printStackTrace();
+            System.out.println("Exception thrown");
+            System.out.println(" ");
+            System.out.println(exception.getMessage());
+            System.out.println(" ");
+
+        }
         start();
     }
     public void cancelFlight(){
@@ -157,9 +170,16 @@ public class BookingMenu{
     public void searchFlightsByDestination(){
         System.out.println("Enter your desired destination:");
         String dest = scanner.nextLine();
+
         List<Flight> flightsByDestination = availableFlights.stream().filter(el -> (el.getDestination().equals(dest))).collect(Collectors.toList());
-        for(Flight flight : flightsByDestination) {
-            System.out.println(flight);
+        if(flightsByDestination.isEmpty()){
+            System.out.println(" ");
+            System.out.println("*NO FLIGHTS TO THIS DESTINATION*");
+            System.out.println(" ");
+        } else {
+            for (Flight flight : flightsByDestination) {
+                System.out.println(flight);
+            }
         }
         start();
     }
@@ -171,37 +191,78 @@ public class BookingMenu{
         System.out.println("4. Display list of all passengers");
         System.out.println("5. Return to main menu");
         System.out.println("Please enter a number between 1 and 5 to pick an option:");
-        String tests = scanner.nextLine();
 
-        switch (tests){
-            case "1":
-                for(Flight flight : allFlights){
-                    System.out.println(flight.toString());
-                }                adminAccess();
-                break;
-            case "2":
-                for(Flight cancelledFlight : cancelledFlights){
-                    System.out.println(cancelledFlight.toString());
-                }
-                adminAccess();
-                break;
-            case "3":
-                System.out.println("Please enter the flight's ID:");
-                String flightId = scanner.nextLine();
-                int flightIndex = Integer.parseInt(flightId) - 1;
-                Flight selectedFlight = allFlights.get(flightIndex);
-                selectedFlight.printBookedPassengers();
-                adminAccess();
-                break;
-            case "4":
-                for(Passenger passenger : passengers){
-                    System.out.println(passenger.toString());
-                }
-                adminAccess();
-                break;
-            case "5":
-                start();
-                break;
+        try {
+            String tests = scanner.nextLine();
+            if(tests.equals("1")||tests.equals("2")||tests.equals("3")||tests.equals("4")||tests.equals("5")) {
+                System.out.println("Thank you for picking an option");
+            } else {
+                throw new Exception("Please input a number between 1 and 5");
+            }
+
+            switch (tests) {
+
+                case "1":
+
+                    if(allFlights.size() > 0) {
+                        for (Flight flight : allFlights) {
+                            System.out.println(flight.toString());
+                        }
+                    } else {
+                        System.out.println(" ");
+                        System.out.println("*NO FLIGHTS FOUND*");
+                        System.out.println(" ");
+                    }
+                    adminAccess();
+                    break;
+
+                case "2":
+                    if(cancelledFlights.size() > 0) {
+                        for (Flight cancelledFlight : cancelledFlights) {
+                            System.out.println(cancelledFlight.toString());
+                        }
+                    } else {
+                        System.out.println(" ");
+                        System.out.println("*NO FLIGHTS CANCELLED*");
+                        System.out.println(" ");
+                    }
+                    adminAccess();
+                    break;
+
+                case "3":
+                    System.out.println("Please enter the flight's ID:");
+                    String flightId = scanner.nextLine();
+                    int flightIndex = Integer.parseInt(flightId) - 1;
+                    Flight selectedFlight = allFlights.get(flightIndex);
+                    selectedFlight.printBookedPassengers();
+                    adminAccess();
+                    break;
+
+                case "4":
+                    if(passengers.size() > 0) {
+                        for (Passenger passenger : passengers) {
+                            System.out.println(passenger.toString());
+                        }
+                    } else {
+                        System.out.println(" ");
+                        System.out.println("*NO PASSENGERS FOUND*");
+                        System.out.println(" ");
+                    }
+                    adminAccess();
+                    break;
+
+                case "5":
+                    start();
+                    break;
+
+            }
         }
+
+        catch (Exception exception) {
+            exception.printStackTrace();
+            System.out.println("Exception thrown");
+            System.out.println(exception.getMessage());
+        }
+        adminAccess();
     }
 }

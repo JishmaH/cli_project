@@ -5,9 +5,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class BookingMenuTest {
 
+    // We decided to use the CLI to test methods that involved user input.
+
     BookingMenu bookingMenu;
     Flight flight;
-    Passenger passenger;
 
     @BeforeEach
     public void setup(){

@@ -2,6 +2,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class PassengerTest {
 
+    // We decided to use the CLI to test methods that involved user input.
+
     Passenger passenger;
 
     @BeforeEach

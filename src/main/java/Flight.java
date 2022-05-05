@@ -17,30 +17,21 @@ public class Flight {
         return destination;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
     public void addBookedPassenger(Passenger passenger) {
         this.bookedPassengers.add(passenger);
     }
+
     public void printBookedPassengers(){
-       for(Passenger bookedPassenger : bookedPassengers){
-           System.out.println(bookedPassenger.toString());
+       if(bookedPassengers.size() > 0) {
+           for (Passenger bookedPassenger : bookedPassengers) {
+               System.out.println(bookedPassenger.toString());
+           }
+       } else {
+           System.out.println(" ");
+           System.out.println("*NO PASSENGERS BOOKED TO THIS FLIGHT*");
+           System.out.println(" ");
        }
     }
-
-    public int bookedPassengerCount(){
-        return this.bookedPassengers.size();
-    }
-
 
     @Override
     public String toString() {
