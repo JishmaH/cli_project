@@ -100,7 +100,7 @@ public class BookingMenu{
             System.out.println("Exception thrown");
             System.out.println(exception.getMessage());
         }
-
+start();
     }
 
     public void addFlight(){
