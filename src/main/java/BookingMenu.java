@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,15 +8,16 @@ public class BookingMenu{
     private Scanner scanner;
     private ArrayList<Flight> allFlights;
     private ArrayList<Flight> availableFlights;
-    private ArrayList<Passenger> passengers;
     private ArrayList<Flight> cancelledFlights;
+    private ArrayList<Passenger> passengers;
 
     public BookingMenu(){
         this.scanner = new Scanner(System.in);
         this.allFlights = new ArrayList<>();
         this.availableFlights = new ArrayList <>();
-        this.passengers = new ArrayList<>();
         this.cancelledFlights = new ArrayList<>();
+        this.passengers = new ArrayList<>();
+
     }
 
     public ArrayList<Flight> getAvailableFlights() {
@@ -30,6 +32,10 @@ public class BookingMenu{
         return cancelledFlights;
     }
 
+    public ArrayList<Flight> getAllFlights() {
+        return allFlights;
+    }
+
 
     public void start(){
         System.out.println("Welcome!");
@@ -40,7 +46,7 @@ public class BookingMenu{
         System.out.println("3. Add a new passenger");
         System.out.println("4. Book a passenger on to a flight");
         System.out.println("5. Cancel a flight");
-        System.out.println("6. Search for flights by destination");
+        System.out.println("6. Search for available flights by destination");
         System.out.println("7. Admin access");
         System.out.println("8. Close app");
         System.out.println("Please enter a number between 1 and 8 to pick an option:");
@@ -57,27 +63,36 @@ public class BookingMenu{
             switch(option) {
                 case "1":
                     addFlight();
+                    start();
                     break;
                 case "2":
                     displayAvailableFlights();
+                    start();
                     break;
                 case "3":
                     addPassenger();
+                    start();
                     break;
                 case "4":
                     bookOnToAFlight();
+                    start();
                     break;
                 case "5":
                     cancelFlight();
+                    start();
                     break;
                 case "6":
                     searchFlightsByDestination();
+                    start();
                     break;
                 case "7":
                     adminAccess();
+                    start();
                     break;
                 case "8":
                     System.out.println("Thanks for using our app!");
+                    System.exit(1);
+                    break;
             }
         }
         catch (Exception exception){
@@ -85,8 +100,9 @@ public class BookingMenu{
             System.out.println("Exception thrown");
             System.out.println(exception.getMessage());
         }
-    start();
+
     }
+
     public void addFlight(){
         System.out.println(" ");
         System.out.println("Flight Menu");
@@ -110,7 +126,7 @@ public class BookingMenu{
         System.out.println("Please enter the passenger's email:");
         String email = scanner.nextLine();
         int passengerId = this.passengers.size() + 1;
-        Passenger passenger = new Passenger(name,email,passengerId);
+        Passenger passenger = new Passenger(name, email, passengerId);
         this.passengers.add(passenger);
 
         System.out.println("Passenger added!");
@@ -164,6 +180,8 @@ public class BookingMenu{
 
         this.availableFlights.remove(selectedFlight);
         this.cancelledFlights.add(selectedFlight);
+
+        System.out.println(selectedFlight + " cancelled!");
 
         start();
     }
@@ -234,6 +252,7 @@ public class BookingMenu{
                     String flightId = scanner.nextLine();
                     int flightIndex = Integer.parseInt(flightId) - 1;
                     Flight selectedFlight = allFlights.get(flightIndex);
+                    System.out.println(selectedFlight);
                     selectedFlight.printBookedPassengers();
                     adminAccess();
                     break;

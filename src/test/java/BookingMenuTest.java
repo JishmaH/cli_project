@@ -20,6 +20,7 @@ public class BookingMenuTest {
     public void canAddFlight(){
         bookingMenu.addFlight();
         assertThat(bookingMenu.getAvailableFlights().size()).isEqualTo(1);
+        assertThat(bookingMenu.getAllFlights().size()).isEqualTo(1);
     }
 
 //    @Test
@@ -41,4 +42,5 @@ public class BookingMenuTest {
         assertThat(bookingMenu.getCancelledFlights().size()).isEqualTo(1);
         assertThat(bookingMenu.getAvailableFlights().size()).isEqualTo(0);
     }
+
 }
